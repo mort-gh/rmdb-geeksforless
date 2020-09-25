@@ -6,7 +6,6 @@ import fetch from '../../../fetcher';
 
 const styles = {
   block: {
-    background: 'palevioletred',
     padding: '100px 500px',
   },
 };
@@ -100,11 +99,6 @@ class Search extends Component {
 
     return (
       <div style={styles.block}>
-        <div>
-          <button type="button">- prev</button>
-          <button type="button">next -</button>
-        </div>
-
         <form onSubmit={this.handleSubmit}>
           <input type="search" defaultValue={searchQuery} />
           <button type="submit">go</button>

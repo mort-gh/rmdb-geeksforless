@@ -6,7 +6,7 @@ import MovieDetails from 'shared/components/movieDetails/MovieDetails';
 class App extends Component {
   render() {
     return (
-      <div>
+      <div className="container">
         <Switch>
           <Route path="/" exact component={HomePage} />
           <Route path="/movies/:movieID" component={MovieDetails} />

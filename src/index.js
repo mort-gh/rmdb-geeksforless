@@ -5,7 +5,10 @@ import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { rootReducer } from './redux_setup/rootReducer';
+
 import App from './App';
+
+import './shared/styles/global.scss';
 
 // const store = createStore(rootReducer, composeWithDevTools(applyMiddleware()));
 
