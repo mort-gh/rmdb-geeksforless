@@ -8,6 +8,7 @@
     "connected-react-router": "^6.2.1",
     "history": "^4.7.2",
     "immer-reducer": "^0.7.0",
+    "query-string": "^6.13.2",
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
     "react-redux": "^7.0.3",
@@ -56,6 +57,7 @@
     "prettier": "1.15.3",
     "pretty-quick": "^1.9.0",
     "react-scripts": "3.0.1",
+    "redux-devtools-extension": "^2.13.8",
     "ts-jest": "^24.0.2",
     "typescript": "^3.2.2"
   },
