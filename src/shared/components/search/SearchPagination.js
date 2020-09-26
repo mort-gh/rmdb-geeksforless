@@ -1,3 +1,4 @@
+// modules
 import React, { Component } from 'react';
 
 class SearchPagination extends Component {

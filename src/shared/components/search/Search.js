@@ -1,7 +1,12 @@
+// modules
 import React, { Component } from 'react';
 import { withRouter } from 'react-router';
 import queryString from 'query-string';
-import fetch from '../../../fetcher';
+
+// services
+import fetch from '../../../api/fetcher';
+
+// components
 import SearchList from './SearchList';
 import SearchInput from './SearchInput';
 import SearchPagination from './SearchPagination';
@@ -15,23 +20,16 @@ class Search extends Component {
   };
 
   async componentDidMount() {
-    const locationSearch = queryString.parse(this.props.location.search);
-
-    this.setState({
-      searchQuery: locationSearch.query || '',
-      currentPage: locationSearch.page || 1,
-    });
-
     const { searchQuery, currentPage } = this.state;
 
-    if (locationSearch) {
-      await this.fetchMovies(searchQuery, currentPage);
-    }
+    this.saveURLparams();
+    await this.fetchMovies(searchQuery, currentPage);
   }
 
   async componentDidUpdate(prevProps, prevState) {
     const { searchQuery, currentPage } = this.state;
     const { location, history } = this.props;
+    const locationSearch = queryString.parse(location.search);
 
     if (prevState.searchQuery !== searchQuery) {
       await this.fetchMovies(searchQuery, currentPage);
@@ -41,12 +39,20 @@ class Search extends Component {
       await this.fetchMovies(searchQuery, currentPage);
     }
 
-    const locationSearch = queryString.parse(location.search);
-
     if (locationSearch && locationSearch.query === '') {
       history.push('/');
     }
   }
+
+  saveURLparams = () => {
+    const { search } = this.props.location;
+    const locationSearch = queryString.parse(search);
+
+    this.setState({
+      searchQuery: locationSearch.query || '',
+      currentPage: locationSearch.page || 1,
+    });
+  };
 
   fetchMovies = async (query, page) => {
     const data = await fetch.getMoviesBySearchQuery(query, page);
@@ -73,17 +79,27 @@ class Search extends Component {
     });
   };
 
-  loadPage = event => {
-    const locationSearch = queryString.parse(this.props.location.search);
+  handleClickLoadPage = event => {
+    const { search } = this.props.location;
+    const locationSearch = queryString.parse(search);
     let { query, page } = locationSearch;
-    const btnName = event.target.name;
     page = +page;
+
+    const btnName = event.target.name;
 
     if (btnName === 'nextPage') page += 1;
     if (btnName === 'prevPage') page -= 1;
     if (page < 2) page = 1;
 
-    this.props.history.push({ search: `?query=${query}&page=${page}` });
+    this.getURLtoOpenTextPage(query, page);
+  };
+
+  getURLtoOpenTextPage = (query, page) => {
+    const { history } = this.props;
+
+    history.push({
+      search: `?query=${query}&page=${page}`,
+    });
 
     this.setState({
       searchQuery: query,
@@ -92,9 +108,9 @@ class Search extends Component {
   };
 
   calculateTotalPages = value => {
-    const ceiledTotalPages = Math.ceil(value / 10) * 10;
+    const toCeilTotalPages = Math.ceil(value / 10) * 10;
     const moviesPerPage = 10;
-    return ceiledTotalPages / moviesPerPage;
+    return toCeilTotalPages / moviesPerPage;
   };
 
   render() {
@@ -102,24 +118,20 @@ class Search extends Component {
 
     return (
       <div>
-        <h1>Explore movies & series</h1>
         <SearchInput
           handleSubmit={this.handleSubmit}
           defaultValue={searchQuery}
         />
 
-        <br />
-
-        <SearchList movies={movies} />
-
-        <br />
-
         {movies.length > 0 && (
-          <SearchPagination
-            state={this.state}
-            calculateTotalPages={this.calculateTotalPages}
-            loadPage={this.loadPage}
-          />
+          <>
+            <SearchList movies={movies} />
+            <SearchPagination
+              state={this.state}
+              calculateTotalPages={this.calculateTotalPages}
+              loadPage={this.handleClickLoadPage}
+            />
+          </>
         )}
       </div>
     );

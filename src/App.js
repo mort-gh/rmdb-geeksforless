@@ -1,5 +1,8 @@
+// modules
 import React, { Component } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
+
+// components
 import SearchPage from 'shared/pages/SearchPage';
 import MovieDetailsPage from 'shared/pages/MovieDetailsPage';
 

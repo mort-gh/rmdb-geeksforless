@@ -1,6 +1,9 @@
+// modules
 import React, { Component } from 'react';
 import { withRouter } from 'react-router';
-import fetch from '../../../fetcher';
+
+// services
+import fetch from '../../../api/fetcher';
 
 class MovieDetails extends Component {
   state = {
@@ -9,16 +12,19 @@ class MovieDetails extends Component {
 
   async componentDidMount() {
     const { movieID } = this.props.match.params;
+
     await this.fetchMovie(movieID);
   }
 
   fetchMovie = async id => {
     const data = await fetch.getMovieByID(id);
+
     this.setState({ movie: data || null });
   };
 
   render() {
     const { movie } = this.state;
+
     return (
       <>
         <h3>Movie details</h3>
