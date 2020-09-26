@@ -28,13 +28,14 @@ class Search extends Component {
 
     const { searchQuery, currentPage } = this.state;
 
-    if (locationSearch.search) {
+    if (locationSearch) {
       this.fetchMovies(searchQuery, currentPage);
     }
   }
 
   async componentDidUpdate(prevProps, prevState) {
     const { searchQuery, currentPage } = this.state;
+    const { location, history } = this.props;
 
     if (prevState.searchQuery !== searchQuery) {
       this.fetchMovies(searchQuery, currentPage);
@@ -42,6 +43,12 @@ class Search extends Component {
 
     if (prevState.currentPage !== currentPage) {
       this.fetchMovies(searchQuery, currentPage);
+    }
+
+    const locationSearch = queryString.parse(location.search);
+
+    if (locationSearch && locationSearch.query === '') {
+      history.push('/');
     }
   }
 
