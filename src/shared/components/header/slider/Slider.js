@@ -1,36 +1,30 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { withRouter } from 'react-router';
-import fetch from '../../../fetcher';
-import bgdb from '../../../bgdb.json';
-import './SearchHeader.scss';
+import fetch from '../../../../fetcher';
+import slidesImgData from '../../../../bgdb.json';
+import './Slider.scss';
 
-class SearchHeader extends Component {
+class Slider extends Component {
   state = {
     slides: [],
     currentSlideIdx: 0,
     currentSlideData: null,
   };
 
-  async componentDidMount() {
-    this.setState({
-      slides: bgdb,
-    });
+  componentDidMount() {
+    this.setState({ slides: slidesImgData });
   }
 
-  async componentDidUpdate(prevProps, prevState) {
+  async componentDidUpdate() {
     const { slides, currentSlideIdx } = this.state;
     const currentSlideID = slides[currentSlideIdx].imdbID;
-    const data = await this.fetchMovie(currentSlideID);
-
-    this.setState({
-      currentSlideData: data,
-    });
+    await this.fetchMovie(currentSlideID);
   }
 
   fetchMovie = async id => {
     const data = await fetch.getMovieByID(id);
-    return data;
+    this.setState({ currentSlideData: data });
   };
 
   handleClickSlider = event => {
@@ -118,4 +112,4 @@ class SearchHeader extends Component {
   }
 }
 
-export default withRouter(SearchHeader);
+export default withRouter(Slider);

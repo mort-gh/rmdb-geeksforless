@@ -1,16 +1,15 @@
 import React, { Component } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
-import HomePage from 'shared/pages/HomePage';
-import MovieDetails from 'shared/components/movieDetails/MovieDetails';
+import SearchPage from 'shared/pages/SearchPage';
+import MovieDetailsPage from 'shared/pages/MovieDetailsPage';
 
 class App extends Component {
   render() {
     return (
       <div className="container">
         <Switch>
-          <Route path="/" exact component={HomePage} />
-          <Route path="/movies/:movieID" component={MovieDetails} />
-          {/* <Route path="/movies" component={HomePage} /> */}
+          <Route path="/" exact component={SearchPage} />
+          <Route path="/movies/:movieID" component={MovieDetailsPage} />
           <Redirect to="/" />
         </Switch>
       </div>

@@ -1,0 +1,12 @@
+@import '../../../../shared//styles/variables.scss';
+
+.trailer {
+  background-color: var(--color-bg);
+  position: relative;
+
+  &__btn-back {
+    position: absolute;
+    top: 50%;
+    left: 150px;
+  }
+}

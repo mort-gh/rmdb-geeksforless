@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
-import SearchHeader from 'shared/components/searchHeader/SearchHeader';
+import Slider from 'shared/components/header/slider/Slider';
 import Search from 'shared/components/search/Search';
 
-class HomePage extends Component {
+class SearchPage extends Component {
   render() {
     return (
       <>
-        <SearchHeader />
+        <Slider />
         <Search />
       </>
     );
   }
 }
 
-export default HomePage;
+export default SearchPage;

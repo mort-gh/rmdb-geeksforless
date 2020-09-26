@@ -1,14 +1,10 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import { withRouter } from 'react-router';
 import queryString from 'query-string';
 import fetch from '../../../fetcher';
-
-const styles = {
-  block: {
-    padding: '100px 200px',
-  },
-};
+import SearchList from './SearchList';
+import SearchInput from './SearchInput';
+import SearchPagination from './SearchPagination';
 
 class Search extends Component {
   state = {
@@ -29,7 +25,7 @@ class Search extends Component {
     const { searchQuery, currentPage } = this.state;
 
     if (locationSearch) {
-      this.fetchMovies(searchQuery, currentPage);
+      await this.fetchMovies(searchQuery, currentPage);
     }
   }
 
@@ -38,11 +34,11 @@ class Search extends Component {
     const { location, history } = this.props;
 
     if (prevState.searchQuery !== searchQuery) {
-      this.fetchMovies(searchQuery, currentPage);
+      await this.fetchMovies(searchQuery, currentPage);
     }
 
     if (prevState.currentPage !== currentPage) {
-      this.fetchMovies(searchQuery, currentPage);
+      await this.fetchMovies(searchQuery, currentPage);
     }
 
     const locationSearch = queryString.parse(location.search);
@@ -102,54 +98,28 @@ class Search extends Component {
   };
 
   render() {
-    const { searchQuery, currentPage, movies, totalResults } = this.state;
+    const { searchQuery, movies } = this.state;
 
     return (
-      <div style={styles.block}>
-        <form onSubmit={this.handleSubmit}>
-          <input type="search" defaultValue={searchQuery} />
-          <button type="submit">go</button>
-        </form>
+      <div>
+        <h1>Explore movies & series</h1>
+        <SearchInput
+          handleSubmit={this.handleSubmit}
+          defaultValue={searchQuery}
+        />
+
         <br />
 
-        <ul>
-          {movies.length > 0 &&
-            movies.map(movie => (
-              <li key={movie.imdbID}>
-                <Link
-                  to={{
-                    pathname: `/movies/${movie.imdbID}`,
-                    state: {
-                      pathLocal:
-                        this.props.location.pathname +
-                        this.props.location.search,
-                    },
-                  }}
-                >
-                  {movie.Title} - ({movie.Year})
-                </Link>
-              </li>
-            ))}
-        </ul>
+        <SearchList movies={movies} />
+
+        <br />
 
         {movies.length > 0 && (
-          <div>
-            <br />
-            <p>Total results: {totalResults}</p>
-            <p>Total pages: {this.calculateTotalPages(totalResults)}</p>
-            <p>Current page: {currentPage}</p>
-            <br />
-            {currentPage > 1 && (
-              <button type="button" name="prevPage" onClick={this.loadPage}>
-                - prev {+currentPage - 1}
-              </button>
-            )}
-            {movies.length > 9 && (
-              <button type="button" name="nextPage" onClick={this.loadPage}>
-                {+currentPage + 1} next +
-              </button>
-            )}
-          </div>
+          <SearchPagination
+            state={this.state}
+            calculateTotalPages={this.calculateTotalPages}
+            loadPage={this.loadPage}
+          />
         )}
       </div>
     );
