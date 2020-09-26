@@ -13,7 +13,7 @@ class SearchList extends Component {
             <li key={movie.imdbID}>
               <Link
                 to={{
-                  pathname: `/movies/${movie.imdbID}`,
+                  pathname: `/movie/${movie.imdbID}`,
                   state: {
                     pathLocal: location.pathname + location.search,
                   },

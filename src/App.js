@@ -9,7 +9,7 @@ class App extends Component {
       <div className="container">
         <Switch>
           <Route path="/" exact component={SearchPage} />
-          <Route path="/movies/:movieID" component={MovieDetailsPage} />
+          <Route path="/movie/:movieID" component={MovieDetailsPage} />
           <Redirect to="/" />
         </Switch>
       </div>
