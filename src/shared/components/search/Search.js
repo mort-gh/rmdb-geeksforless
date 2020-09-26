@@ -6,7 +6,7 @@ import fetch from '../../../fetcher';
 
 const styles = {
   block: {
-    padding: '100px 500px',
+    padding: '100px 200px',
   },
 };
 
@@ -103,6 +103,7 @@ class Search extends Component {
           <input type="search" defaultValue={searchQuery} />
           <button type="submit">go</button>
         </form>
+        <br />
 
         <ul>
           {movies.length > 0 &&
@@ -126,8 +127,11 @@ class Search extends Component {
 
         {movies.length > 0 && (
           <div>
+            <br />
+            <p>Total results: {totalResults}</p>
             <p>Total pages: {this.calculateTotalPages(totalResults)}</p>
             <p>Current page: {currentPage}</p>
+            <br />
             {currentPage > 1 && (
               <button type="button" name="prevPage" onClick={this.loadPage}>
                 - prev {+currentPage - 1}
