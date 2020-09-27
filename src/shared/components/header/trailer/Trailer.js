@@ -6,7 +6,7 @@ import { withRouter } from 'react-router';
 import ReactPlayer from 'react-player/youtube';
 
 // styles
-import './Trailer.scss';
+import './trailer.scss';
 
 class Trailer extends Component {
   state = {
@@ -31,8 +31,6 @@ class Trailer extends Component {
   };
 
   render() {
-    // const { returnToPrevPage } = this.props;
-
     return (
       <>
         <div className="trailer">
@@ -49,7 +47,12 @@ class Trailer extends Component {
             type="button"
             className="trailer__btn"
           >
-            Back
+            <img
+              className="slider__arrow_prev"
+              src={require('../../../../assets/svg/arrow.svg')}
+              alt="prev"
+            />
+            <span>Back</span>
           </button>
         </div>
       </>
