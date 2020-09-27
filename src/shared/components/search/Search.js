@@ -1,10 +1,13 @@
 // modules
 import React, { Component } from 'react';
 import { withRouter } from 'react-router';
+import { connect } from 'react-redux';
+import { compose } from 'redux';
 import queryString from 'query-string';
 
 // services
 import fetch from '../../../api/fetcher';
+import { actionFetchMovies } from './searchActions';
 
 // components
 import SearchList from './SearchList';
@@ -61,6 +64,8 @@ class Search extends Component {
       movies: data.Search || [],
       totalResults: data.totalResults,
     });
+
+    actionFetchMovies(data);
   };
 
   handleSubmit = event => {
@@ -138,4 +143,23 @@ class Search extends Component {
   }
 }
 
-export default withRouter(Search);
+const mapStateToProps = state => ({
+  searchQuery: state.search.searchQuery,
+  currentPage: state.search.currentPage,
+  movies: state.search.movies,
+  totalResults: state.search.totalResults,
+  load: state.search.load,
+  error: state.search.error,
+});
+
+const mapDispatchToProps = dispatch => ({
+  actionFetchMovies: () => dispatch(actionFetchMovies()),
+});
+
+export default compose(
+  withRouter,
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )
+)(Search);
