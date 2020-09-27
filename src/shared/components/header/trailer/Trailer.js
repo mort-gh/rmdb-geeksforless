@@ -9,8 +9,29 @@ import ReactPlayer from 'react-player/youtube';
 import './Trailer.scss';
 
 class Trailer extends Component {
+  state = {
+    pathLocal: '',
+  };
+
+  componentDidMount() {
+    this.setPathLocal();
+  }
+
+  setPathLocal = () => {
+    const { pathLocal } = this.props.location.state;
+
+    this.setState({ pathLocal });
+  };
+
+  returnToPrevPage = () => {
+    const { history } = this.props;
+    const { pathLocal } = this.state;
+
+    history.push(pathLocal);
+  };
+
   render() {
-    const { returnToPrevPage } = this.props;
+    // const { returnToPrevPage } = this.props;
 
     return (
       <>
@@ -24,7 +45,7 @@ class Trailer extends Component {
           />
 
           <button
-            onClick={returnToPrevPage}
+            onClick={this.returnToPrevPage}
             type="button"
             className="trailer__btn"
           >

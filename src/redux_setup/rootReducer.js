@@ -1,13 +1,4 @@
-const initialState = {
-  value: 'hello',
-};
+import { combineReducers } from 'redux';
+import { search } from '../shared/components/search/searchReducer';
 
-export function rootReducer(state = initialState, action) {
-  switch (action.type) {
-    case 'CHANGE':
-      return { ...state, value: action.payload };
-
-    default:
-      return state;
-  }
-}
+export const rootReducer = combineReducers({ search });
