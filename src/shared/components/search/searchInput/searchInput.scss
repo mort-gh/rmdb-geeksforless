@@ -1,0 +1,29 @@
+.form {
+  margin-top: 70px;
+
+  &__input {
+    padding-left: 24px;
+    height: 70px;
+    width: 540px;
+    left: 140px;
+    top: 761px;
+    border-radius: 0px;
+    border: none;
+    outline: none;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 22px;
+    color: var(--color-bg);
+    background-image: url('../../../../assets/svg/search.svg');
+    background-repeat: no-repeat;
+    background-position: right 24px center;
+
+    &::placeholder {
+      color: #c4c4c4;
+    }
+
+    &_icon {
+    }
+  }
+}
