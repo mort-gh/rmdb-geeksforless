@@ -10,9 +10,14 @@ class SearchPage extends Component {
   render() {
     return (
       <>
-        <Slider />
-        <Title />
-        <Search />
+        <header className="container__header">
+          <Slider />
+          <Title />
+        </header>
+
+        <main className="container__main">
+          <Search />
+        </main>
       </>
     );
   }
