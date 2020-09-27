@@ -11,10 +11,16 @@ class SearchPagination extends Component {
 
     return (
       <div className="pagination__info">
-        <p>Total results: &nbsp;{totalResults}</p>
         <p>
-          Current page: &nbsp;{currentPage}&nbsp;/&nbsp;
-          {calculateTotalPages(totalResults)}
+          Total results: &nbsp;
+          <span>{totalResults}</span>
+        </p>
+        <p>
+          Current page: &nbsp;
+          <span>
+            {currentPage}&nbsp;/&nbsp;
+            {calculateTotalPages(totalResults)}
+          </span>
         </p>
       </div>
     );

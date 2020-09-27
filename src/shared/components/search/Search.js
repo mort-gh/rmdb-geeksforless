@@ -13,6 +13,7 @@ import { actionFetchMovies } from './searchActions';
 import SearchList from './searchList/SearchList';
 import SearchInput from './searchInput/SearchInput';
 import SearchPagination from './searchPagination/SearchPagination';
+import { Loader } from '../loader/Loader';
 
 class Search extends Component {
   state = {
@@ -20,30 +21,34 @@ class Search extends Component {
     currentPage: 1,
     movies: [],
     totalResults: 0,
+    load: true,
   };
 
-  async componentDidMount() {
+  componentDidMount() {
     const { searchQuery, currentPage } = this.state;
 
     this.saveURLparams();
-    await this.fetchMovies(searchQuery, currentPage);
+    this.fetchMovies(searchQuery, currentPage);
   }
 
-  async componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate(prevProps, prevState) {
     const { searchQuery, currentPage } = this.state;
     const { location, history } = this.props;
     const locationSearch = queryString.parse(location.search);
 
     if (prevState.searchQuery !== searchQuery) {
-      await this.fetchMovies(searchQuery, currentPage);
+      this.fetchMovies(searchQuery, currentPage);
+      this.scrollPageAfterSubmit();
     }
 
     if (prevState.currentPage !== currentPage) {
-      await this.fetchMovies(searchQuery, currentPage);
+      this.fetchMovies(searchQuery, currentPage);
+      this.scrollPageAfterSubmit();
     }
 
     if (locationSearch && locationSearch.query === '') {
       history.push('/');
+      this.setState({ load: false });
     }
   }
 
@@ -58,14 +63,20 @@ class Search extends Component {
   };
 
   fetchMovies = async (query, page) => {
-    const data = await fetch.getMoviesBySearchQuery(query, page);
+    try {
+      const data = await fetch.getMoviesBySearchQuery(query, page);
 
-    this.setState({
-      movies: data.Search || [],
-      totalResults: data.totalResults,
-    });
+      this.setState({
+        movies: data.Search || [],
+        totalResults: data.totalResults,
+        load: false,
+      });
 
-    actionFetchMovies(data);
+      this.scrollPageAfterSubmit();
+    } catch (error) {
+      console.log('Fetch error from Search component', error);
+      throw new Error(error);
+    }
   };
 
   handleSubmit = event => {
@@ -81,9 +92,8 @@ class Search extends Component {
     this.setState({
       searchQuery: inputValue,
       currentPage: page,
+      load: true,
     });
-
-    this.scrollPageAfterSubmit();
   };
 
   scrollPageAfterSubmit = () => {
@@ -119,8 +129,6 @@ class Search extends Component {
       searchQuery: query,
       currentPage: page,
     });
-
-    this.scrollPageAfterSubmit();
   };
 
   calculateTotalPages = value => {
@@ -130,10 +138,12 @@ class Search extends Component {
   };
 
   render() {
-    const { searchQuery, movies } = this.state;
+    const { searchQuery, movies, load } = this.state;
 
     return (
       <>
+        {load && <Loader />}
+
         <SearchInput
           handleSubmit={this.handleSubmit}
           defaultValue={searchQuery}

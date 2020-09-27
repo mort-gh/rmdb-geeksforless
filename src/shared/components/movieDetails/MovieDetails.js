@@ -5,12 +5,16 @@ import { withRouter } from 'react-router';
 // services
 import fetch from '../../../api/fetcher';
 
+// components
+import { Loader } from '../loader/Loader';
+
 // styles
 import './movieDetails.scss';
 
 class MovieDetails extends Component {
   state = {
     movie: null,
+    load: true,
   };
 
   componentDidMount() {
@@ -25,6 +29,7 @@ class MovieDetails extends Component {
 
       this.setState({
         movie: data || null,
+        load: false,
       });
     } catch (error) {
       console.error('MovieDetails fetch movie error: ', error);
@@ -32,18 +37,20 @@ class MovieDetails extends Component {
     }
   };
 
+  isMovieHasPoster = () => {
+    const { Poster, Title } = this.state.movie;
+    const noPosterURL = require('../../../assets/images/no_image.jpg');
+    const src = Poster === 'N/A' ? noPosterURL : Poster;
+
+    return <img className="details__poster_img" src={src} alt={Title} />;
+  };
+
   htmlLeftBlock = () => {
     const { movie } = this.state;
 
     return (
       <>
-        <div className="details__poster">
-          <img
-            className="details__poster_img"
-            src={movie.Poster}
-            alt={movie.Title}
-          />
-        </div>
+        <div className="details__poster">{this.isMovieHasPoster()}</div>
 
         <div className="details__rating">
           <span className="details__rating_title">IMDb Rating:</span>
@@ -92,17 +99,21 @@ class MovieDetails extends Component {
   };
 
   render() {
-    const { movie } = this.state;
+    const { movie, load } = this.state;
 
     return (
-      <div className="details__wrapper">
-        <div className="details__leftblock">
-          {movie && this.htmlLeftBlock()}
+      <>
+        {load && <Loader />}
+
+        <div className="details__wrapper">
+          <div className="details__leftblock">
+            {movie && !load && this.htmlLeftBlock()}
+          </div>
+          <div className="details__rightblock">
+            {movie && !load && this.htmlRightBlock()}
+          </div>
         </div>
-        <div className="details__rightblock">
-          {movie && this.htmlRightBlock()}
-        </div>
-      </div>
+      </>
     );
   }
 }

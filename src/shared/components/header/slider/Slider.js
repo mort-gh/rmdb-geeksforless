@@ -1,6 +1,5 @@
 // modules
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import { withRouter } from 'react-router';
 
 // services
@@ -19,19 +18,20 @@ class Slider extends Component {
 
   componentDidMount() {
     this.setState({ slides: slidesImgData });
-  }
-
-  async componentDidUpdate() {
-    const { slides, currentSlideIdx } = this.state;
-
-    const currentSlideID = slides[currentSlideIdx].imdbID;
-    await this.fetchMovie(currentSlideID);
+    this.fetchMovie(slidesImgData[0].imdbID);
   }
 
   fetchMovie = async id => {
-    const data = await fetch.getMovieByID(id);
+    try {
+      const data = await fetch.getMovieByID(id);
 
-    this.setState({ currentSlideData: data });
+      this.setState({
+        currentSlideData: data,
+      });
+    } catch (error) {
+      console.error('Fetch error in Slider component', error);
+      throw new Error(error);
+    }
   };
 
   sliderHandler = event => {
@@ -57,7 +57,12 @@ class Slider extends Component {
       newSliderIdx = isTheFirstSlide ? lastSlideIdx : currentSlideIdx - 1;
     }
 
-    this.setState({ currentSlideIdx: newSliderIdx });
+    this.setState({
+      currentSlideIdx: newSliderIdx,
+    });
+
+    const newSlideID = slides[newSliderIdx].imdbID;
+    this.fetchMovie(newSlideID);
   };
 
   getCurrentSlideImgURL = () => {
@@ -67,20 +72,12 @@ class Slider extends Component {
 
   htmlSlideInfo = () => {
     const { currentSlideData } = this.state;
-    const { pathname, search } = this.props.location;
 
     return (
-      // <Link
-      //   to={{
-      //     pathname: `/movies/${currentSlideData.imdbID}`,
-      //     state: { pathLocal: pathname + search },
-      //   }}
-      // >
       <div className="slider__info">
         <span className="slider__info_year">{currentSlideData.Year}</span>
         <span className="slider__info_title">{currentSlideData.Title}</span>
       </div>
-      // </Link>
     );
   };
 
@@ -130,7 +127,7 @@ class Slider extends Component {
                 backgroundImage: `url(${this.getCurrentSlideImgURL()})`,
               }}
             >
-              {(currentSlideData && this.htmlSlideInfo()) || <></>}
+              {this.htmlSlideInfo()}
               {this.htmlSliderContolls()}
             </div>
           </>

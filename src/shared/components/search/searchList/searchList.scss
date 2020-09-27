@@ -15,10 +15,14 @@
     padding: 25px 0;
     cursor: pointer;
 
+    &:hover .item__block_left {
+      margin-left: -40px;
+      width: 540px;
+    }
+
     &:hover .item__left_span {
       color: var(--color-header);
-      font-weight: 700;
-      margin-left: -40px;
+      // font-weight: 700;
     }
 
     &:hover .item__right_span {
@@ -47,6 +51,7 @@
     display: flex;
     justify-content: flex-start;
     align-items: center;
+    transition: all 0.2s linear;
 
     span {
       font-size: 36px;
