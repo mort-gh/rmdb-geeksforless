@@ -10,9 +10,9 @@ import fetch from '../../../api/fetcher';
 import { actionFetchMovies } from './searchActions';
 
 // components
-import SearchList from './SearchList';
-import SearchInput from './SearchInput';
-import SearchPagination from './SearchPagination';
+import SearchList from './searchList/SearchList';
+import SearchInput from './searchInput/SearchInput';
+import SearchPagination from './searchPagination/SearchPagination';
 
 class Search extends Component {
   state = {
@@ -82,6 +82,15 @@ class Search extends Component {
       searchQuery: inputValue,
       currentPage: page,
     });
+
+    this.scrollPageAfterSubmit();
+  };
+
+  scrollPageAfterSubmit = () => {
+    window.scrollTo({
+      top: 730,
+      behavior: 'smooth',
+    });
   };
 
   handleClickLoadPage = event => {
@@ -90,10 +99,10 @@ class Search extends Component {
     let { query, page } = locationSearch;
     page = +page;
 
-    const btnName = event.target.name;
+    const { name } = event.currentTarget;
 
-    if (btnName === 'nextPage') page += 1;
-    if (btnName === 'prevPage') page -= 1;
+    if (name === 'nextPage') page += 1;
+    if (name === 'prevPage') page -= 1;
     if (page < 2) page = 1;
 
     this.getURLtoOpenTextPage(query, page);
@@ -110,6 +119,8 @@ class Search extends Component {
       searchQuery: query,
       currentPage: page,
     });
+
+    this.scrollPageAfterSubmit();
   };
 
   calculateTotalPages = value => {
@@ -122,7 +133,7 @@ class Search extends Component {
     const { searchQuery, movies } = this.state;
 
     return (
-      <div>
+      <>
         <SearchInput
           handleSubmit={this.handleSubmit}
           defaultValue={searchQuery}
@@ -138,7 +149,7 @@ class Search extends Component {
             />
           </>
         )}
-      </div>
+      </>
     );
   }
 }
