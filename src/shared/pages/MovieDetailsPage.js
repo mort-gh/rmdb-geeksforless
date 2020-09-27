@@ -11,9 +11,13 @@ class MovieDetailsPage extends Component {
   render() {
     return (
       <>
-        <Trailer />
-        <Title />
-        <MovieDetails />
+        <header className="container__header">
+          <Trailer />
+        </header>
+
+        <main className="container__main">
+          <MovieDetails />
+        </main>
       </>
     );
   }

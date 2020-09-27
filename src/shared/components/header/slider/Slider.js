@@ -8,7 +8,7 @@ import fetch from '../../../../api/fetcher';
 import slidesImgData from '../../../../bgdb.json';
 
 // style
-import './Slider.scss';
+import './slider.scss';
 
 class Slider extends Component {
   state = {
@@ -23,8 +23,8 @@ class Slider extends Component {
 
   async componentDidUpdate() {
     const { slides, currentSlideIdx } = this.state;
-    const currentSlideID = slides[currentSlideIdx].imdbID;
 
+    const currentSlideID = slides[currentSlideIdx].imdbID;
     await this.fetchMovie(currentSlideID);
   }
 
@@ -36,7 +36,7 @@ class Slider extends Component {
 
   sliderHandler = event => {
     const { currentSlideIdx, slides } = this.state;
-    const { name } = event.target;
+    const { name } = event.currentTarget;
 
     const isTheNextSlide = name === 'nextSlide';
     const isThePrevSlide = name === 'prevSlide';
@@ -65,33 +65,53 @@ class Slider extends Component {
     return slides.length > 0 ? slides[currentSlideIdx].url : '';
   };
 
-  renderSlideTitle = () => {
+  htmlSlideInfo = () => {
     const { currentSlideData } = this.state;
-    const { location } = this.props;
+    const { pathname, search } = this.props.location;
 
     return (
-      <Link
-        to={{
-          pathname: `/movies/${currentSlideData.imdbID}`,
-          state: {
-            pathLocal: location.pathname + location.search,
-          },
-        }}
-      >
-        <p>{currentSlideData.Title.toUpperCase()}</p>
-        <p>{currentSlideData.Year}</p>
-      </Link>
+      // <Link
+      //   to={{
+      //     pathname: `/movies/${currentSlideData.imdbID}`,
+      //     state: { pathLocal: pathname + search },
+      //   }}
+      // >
+      <div className="slider__info">
+        <span className="slider__info_year">{currentSlideData.Year}</span>
+        <span className="slider__info_title">{currentSlideData.Title}</span>
+      </div>
+      // </Link>
     );
   };
 
-  renderSliderContolls = () => {
+  htmlSliderContolls = () => {
     return (
       <div className="slider__controlls">
-        <button type="button" name="prevSlide" onClick={this.sliderHandler}>
-          prev
+        <button
+          type="button"
+          name="prevSlide"
+          className="slider__controlls_prev"
+          onClick={this.sliderHandler}
+        >
+          <img
+            className="slider__arrow_prev"
+            src={require('../../../../assets/svg/arrow.svg')}
+            alt="prev"
+          />
+          <span>Prev</span>
         </button>
-        <button type="button" name="nextSlide" onClick={this.sliderHandler}>
-          next
+        <button
+          type="button"
+          name="nextSlide"
+          className="slider__controlls_next"
+          onClick={this.sliderHandler}
+        >
+          <span>Next</span>
+          <img
+            className="slider__arrow_next"
+            src={require('../../../../assets/svg/arrow.svg')}
+            alt="prev"
+          />
         </button>
       </div>
     );
@@ -103,15 +123,17 @@ class Slider extends Component {
     return (
       <>
         {currentSlideData && (
-          <div
-            className="slider"
-            style={{
-              backgroundImage: `url(${this.getCurrentSlideImgURL()})`,
-            }}
-          >
-            {currentSlideData && this.renderSlideTitle()}
-            {this.renderSliderContolls()}
-          </div>
+          <>
+            <div
+              className="slider"
+              style={{
+                backgroundImage: `url(${this.getCurrentSlideImgURL()})`,
+              }}
+            >
+              {(currentSlideData && this.htmlSlideInfo()) || <></>}
+              {this.htmlSliderContolls()}
+            </div>
+          </>
         )}
       </>
     );

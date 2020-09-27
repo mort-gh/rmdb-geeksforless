@@ -5,8 +5,27 @@
   position: relative;
 
   &__btn {
+    margin-left: var(--p140);
     position: absolute;
-    top: 50%;
-    left: 150px;
+    top: 0;
+    margin-top: 150px;
+    background: none;
+    outline: none;
+    border: none;
+    width: 140px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+
+    span {
+      color: var(--color-header);
+      font-size: 24px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: 29px;
+      letter-spacing: 0em;
+      text-align: left;
+    }
   }
 }
