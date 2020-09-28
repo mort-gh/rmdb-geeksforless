@@ -4,8 +4,7 @@ import { withRouter } from 'react-router-dom';
 
 // components
 import Trailer from 'shared/components/header/trailer/Trailer';
-import MovieDetails from 'shared/components/movieDetails/MovieDetails';
-import Title from 'shared/components/title/Title';
+import MovieDetailsContainer from 'shared/containers/MovieDetailsContainer';
 
 class MovieDetailsPage extends Component {
   render() {
@@ -16,7 +15,7 @@ class MovieDetailsPage extends Component {
         </header>
 
         <main className="container__main">
-          <MovieDetails />
+          <MovieDetailsContainer />
         </main>
       </>
     );
