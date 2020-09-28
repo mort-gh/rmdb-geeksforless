@@ -1,30 +1,37 @@
+import { initialState } from './searchStore';
 import {
   FETCH_MOVIES_BY_QUERY_ERROR,
   FETCH_MOVIES_BY_QUERY_START,
   FETCH_MOVIES_BY_QUERY_SUCCESS,
+  SAVE_URL_PARAMS,
 } from 'redux_setup/types';
-import { initialState } from './searchStore';
 
-export function search(state = initialState, action) {
-  switch (action.type) {
+export function search(state = initialState, { type, payload }) {
+  switch (type) {
     case FETCH_MOVIES_BY_QUERY_START:
-      return {
-        ...state,
-        loading: true,
-      };
+      return { ...state, spinner: true };
 
     case FETCH_MOVIES_BY_QUERY_SUCCESS:
       return {
         ...state,
-        loading: false,
-        movies: action.movies,
+        movies: payload.Search,
+        totalResults: payload.totalResults,
+        spinner: false,
+        isLoaded: true,
       };
 
     case FETCH_MOVIES_BY_QUERY_ERROR:
       return {
         ...state,
-        loading: false,
-        error: action.error,
+        spinner: false,
+        error: payload,
+      };
+
+    case SAVE_URL_PARAMS:
+      return {
+        ...state,
+        searchQuery: payload.searchQuery,
+        currentPage: payload.currentPage,
       };
 
     default:

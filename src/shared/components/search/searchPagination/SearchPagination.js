@@ -5,9 +5,39 @@ import React, { Component } from 'react';
 import './searchPagination.scss';
 
 class SearchPagination extends Component {
-  htmlPageInfo = () => {
-    const { state, calculateTotalPages } = this.props;
-    const { totalResults, currentPage } = this.props.state;
+  nextPageHandler = event => {
+    const { name } = event.currentTarget;
+    const {
+      history,
+      searchQuery,
+      currentPage,
+      fetchMoviesByQuery,
+    } = this.props;
+
+    const nextPage = this.calculateNextPage(currentPage, name);
+    history.push({ search: `?query=${searchQuery}&page=${nextPage}` });
+    fetchMoviesByQuery(searchQuery, nextPage);
+  };
+
+  calculateNextPage = (page, btnName) => {
+    page = +page;
+
+    if (btnName === 'nextPage') page += 1;
+    if (btnName === 'prevPage') page -= 1;
+    if (page < 2) page = 1;
+
+    return page;
+  };
+
+  calculateTotalPages = value => {
+    const toCeilTotalPages = Math.ceil(value / 10) * 10;
+    const moviesPerPage = 10;
+    const totalPages = toCeilTotalPages / moviesPerPage;
+    return totalPages;
+  };
+
+  htmlTotalPagesInfo = () => {
+    const { totalResults, currentPage } = this.props;
 
     return (
       <div className="pagination__info">
@@ -19,7 +49,7 @@ class SearchPagination extends Component {
           Current page: &nbsp;
           <span>
             {currentPage}&nbsp;/&nbsp;
-            {calculateTotalPages(totalResults)}
+            {this.calculateTotalPages(totalResults)}
           </span>
         </p>
       </div>
@@ -27,15 +57,15 @@ class SearchPagination extends Component {
   };
 
   htmlPrevButton = () => {
-    const { state, loadPage } = this.props;
-    const prevPage = +state.currentPage - 1;
+    const { currentPage } = this.props;
+    const prevPage = +currentPage - 1;
 
     return (
       <button
         type="button"
         name="prevPage"
         className="pagination__controllers_prev"
-        onClick={loadPage}
+        onClick={this.nextPageHandler}
       >
         <img
           className="pagination__arrow_prev"
@@ -46,16 +76,17 @@ class SearchPagination extends Component {
       </button>
     );
   };
+
   htmlNextButton = () => {
-    const { state, loadPage } = this.props;
-    const nextPage = +state.currentPage + 1;
+    const { currentPage } = this.props;
+    const nextPage = +currentPage + 1;
 
     return (
       <button
         type="button"
         name="nextPage"
         className="pagination__controllers_next"
-        onClick={loadPage}
+        onClick={this.nextPageHandler}
       >
         <span>{nextPage}</span>
         <img
@@ -68,7 +99,7 @@ class SearchPagination extends Component {
   };
 
   render() {
-    const { movies, currentPage } = this.props.state;
+    const { movies, currentPage } = this.props;
 
     const renderPrevBtn = currentPage > 1 && this.htmlPrevButton();
     const renderNextBtn = movies.length > 9 && this.htmlNextButton();
@@ -76,7 +107,7 @@ class SearchPagination extends Component {
     return (
       <div className="pagination__wrapper">
         <div className="pagination__block">
-          {this.htmlPageInfo()}
+          {this.htmlTotalPagesInfo()}
           <div className="pagination__controllers">
             {renderPrevBtn}
             {renderNextBtn}

@@ -2,21 +2,21 @@
 import React, { Component } from 'react';
 
 // components
-import Slider from 'shared/components/header/slider/Slider';
-import Search from 'shared/components/search/Search';
+import SliderContainer from 'shared/containers/SliderContainer';
 import Title from 'shared/components/title/Title';
+import SearchContainer from 'shared/containers/SearchContainer';
 
 class SearchPage extends Component {
   render() {
     return (
       <>
         <header className="container__header">
-          <Slider />
+          <SliderContainer />
           <Title />
         </header>
 
         <main className="container__main">
-          <Search />
+          <SearchContainer />
         </main>
       </>
     );
