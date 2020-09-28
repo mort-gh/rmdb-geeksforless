@@ -3,6 +3,7 @@ export const initialState = {
   currentPage: 1,
   movies: [],
   totalResults: 0,
-  loading: false,
+  spinner: false,
+  isLoaded: false,
   error: null,
 };
