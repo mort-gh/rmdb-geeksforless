@@ -5,15 +5,28 @@ import React, { Component } from 'react';
 import './searchInput.scss';
 
 class SearchInput extends Component {
+  handleSubmit = event => {
+    event.preventDefault();
+
+    const { history, fetchMoviesByQuery } = this.props;
+    const value = event.target.elements[0].value;
+    const page = 1;
+
+    history.push({ search: `?query=${value}&page=${page}` });
+
+    if (value) fetchMoviesByQuery(value, page);
+    else history.push('/');
+  };
+
   render() {
-    const { defaultValue, handleSubmit } = this.props;
+    const { searchQuery } = this.props;
 
     return (
-      <form className="form" onSubmit={handleSubmit}>
+      <form className="form" onSubmit={this.handleSubmit}>
         <input
           className="form__input"
           type="text"
-          defaultValue={defaultValue}
+          defaultValue={searchQuery}
           placeholder="Search ..."
         />
       </form>

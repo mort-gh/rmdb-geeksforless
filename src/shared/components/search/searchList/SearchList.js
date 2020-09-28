@@ -1,6 +1,5 @@
 // modules
 import React, { Component } from 'react';
-import { withRouter } from 'react-router';
 import { Link } from 'react-router-dom';
 
 // styles
@@ -10,15 +9,14 @@ class SearchList extends Component {
   renderListItems = movie => {
     const { pathname, search } = this.props.location;
 
+    const linkOptions = {
+      pathname: `/movie/${movie.imdbID}`,
+      state: { pathLocal: pathname + search },
+    };
+
     return (
       <li className="search__list_item" key={movie.imdbID}>
-        <Link
-          className="search__list_link"
-          to={{
-            pathname: `/movie/${movie.imdbID}`,
-            state: { pathLocal: pathname + search },
-          }}
-        >
+        <Link className="search__list_link" to={linkOptions}>
           <div className="item__block">
             <div className="item__block_left">
               <span className="item__left_span">{movie.Title}</span>
@@ -34,17 +32,16 @@ class SearchList extends Component {
   };
 
   render() {
-    const { movies } = this.props;
+    const { movies, isLoaded } = this.props;
 
     return (
       <div className="list__wrapper">
         <ul className="search__list">
-          {movies.length > 0 &&
-            movies.map(movie => this.renderListItems(movie))}
+          {isLoaded && movies.map(movie => this.renderListItems(movie))}
         </ul>
       </div>
     );
   }
 }
 
-export default withRouter(SearchList);
+export default SearchList;

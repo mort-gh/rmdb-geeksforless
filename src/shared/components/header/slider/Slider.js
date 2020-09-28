@@ -1,45 +1,26 @@
 // modules
 import React, { Component } from 'react';
-import { withRouter } from 'react-router';
-
-// services
-import fetch from '../../../../api/fetcher';
-import slidesImgData from '../../../../bgdb.json';
-
 // style
 import './slider.scss';
 
 class Slider extends Component {
-  state = {
-    slides: [],
-    currentSlideIdx: 0,
-    currentSlideData: null,
-  };
-
   componentDidMount() {
-    this.setState({ slides: slidesImgData });
-    this.fetchMovie(slidesImgData[0].imdbID);
+    const { fetchMovieByID, slides } = this.props;
+    fetchMovieByID(slides[0].imdbID);
   }
 
-  fetchMovie = async id => {
-    try {
-      const data = await fetch.getMovieByID(id);
-
-      this.setState({
-        currentSlideData: data,
-      });
-    } catch (error) {
-      console.error('Fetch error in Slider component', error);
-      throw new Error(error);
-    }
-  };
-
   sliderHandler = event => {
-    const { currentSlideIdx, slides } = this.state;
+    const {
+      currentSlideIdx,
+      slides,
+      saveCurrentSlideIdx,
+      fetchMovieByID,
+    } = this.props;
+
     const { name } = event.currentTarget;
 
-    const isTheNextSlide = name === 'nextSlide';
-    const isThePrevSlide = name === 'prevSlide';
+    const isPrevBtn = name === 'nextSlide';
+    const isNextBtn = name === 'prevSlide';
 
     const totalItems = slides.length;
     const firstSlideIdx = 0;
@@ -49,34 +30,34 @@ class Slider extends Component {
 
     let newSliderIdx;
 
-    if (isTheNextSlide) {
+    if (isNextBtn) {
       newSliderIdx = isTheLastSlide ? firstSlideIdx : currentSlideIdx + 1;
     }
 
-    if (isThePrevSlide) {
+    if (isPrevBtn) {
       newSliderIdx = isTheFirstSlide ? lastSlideIdx : currentSlideIdx - 1;
     }
 
-    this.setState({
-      currentSlideIdx: newSliderIdx,
-    });
-
     const newSlideID = slides[newSliderIdx].imdbID;
-    this.fetchMovie(newSlideID);
+
+    saveCurrentSlideIdx(newSliderIdx);
+    fetchMovieByID(newSlideID);
   };
 
-  getCurrentSlideImgURL = () => {
-    const { slides, currentSlideIdx } = this.state;
-    return slides.length > 0 ? slides[currentSlideIdx].url : '';
+  getSliderBgImg = () => {
+    const { slides, currentSlideIdx } = this.props;
+    const noSliderImg = require('../../../../assets/images/slider_no_img.jpg');
+
+    return slides.length > 0 ? slides[currentSlideIdx].url : noSliderImg;
   };
 
   htmlSlideInfo = () => {
-    const { currentSlideData } = this.state;
+    const { Year, Title } = this.props.currentSlideData;
 
     return (
       <div className="slider__info">
-        <span className="slider__info_year">{currentSlideData.Year}</span>
-        <span className="slider__info_title">{currentSlideData.Title}</span>
+        <span className="slider__info_year">{Year}</span>
+        <span className="slider__info_title">{Title}</span>
       </div>
     );
   };
@@ -115,26 +96,23 @@ class Slider extends Component {
   };
 
   render() {
-    const { currentSlideData } = this.state;
+    const { isLoaded } = this.props;
+
+    const backgroundImgOptions = {
+      backgroundImage: `url(${this.getSliderBgImg()})`,
+    };
 
     return (
       <>
-        {currentSlideData && (
-          <>
-            <div
-              className="slider"
-              style={{
-                backgroundImage: `url(${this.getCurrentSlideImgURL()})`,
-              }}
-            >
-              {this.htmlSlideInfo()}
-              {this.htmlSliderContolls()}
-            </div>
-          </>
-        )}
+        <>
+          <div className="slider" style={backgroundImgOptions}>
+            {isLoaded && this.htmlSlideInfo()}
+            {isLoaded && this.htmlSliderContolls()}
+          </div>
+        </>
       </>
     );
   }
 }
 
-export default withRouter(Slider);
+export default Slider;

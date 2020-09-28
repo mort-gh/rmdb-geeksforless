@@ -1,44 +1,20 @@
 // modules
 import React, { Component } from 'react';
-import { withRouter } from 'react-router';
-
-// services
-import fetch from '../../../api/fetcher';
 
 // components
-import { Loader } from '../loader/Loader';
+import { Spinner } from '../loader/Spinner';
 
 // styles
 import './movieDetails.scss';
 
 class MovieDetails extends Component {
-  state = {
-    movie: null,
-    load: true,
-  };
-
   componentDidMount() {
     const { movieID } = this.props.match.params;
-
-    this.fetchMovie(movieID);
+    this.props.fetchMoviesByID(movieID);
   }
 
-  fetchMovie = async id => {
-    try {
-      const data = await fetch.getMovieByID(id);
-
-      this.setState({
-        movie: data || null,
-        load: false,
-      });
-    } catch (error) {
-      console.error('MovieDetails fetch movie error: ', error);
-      throw new Error(error);
-    }
-  };
-
-  isMovieHasPoster = () => {
-    const { Poster, Title } = this.state.movie;
+  imgTagMoviePoster = () => {
+    const { Poster, Title } = this.props.movie;
     const noPosterURL = require('../../../assets/images/no_image.jpg');
     const src = Poster === 'N/A' ? noPosterURL : Poster;
 
@@ -46,11 +22,11 @@ class MovieDetails extends Component {
   };
 
   htmlLeftBlock = () => {
-    const { movie } = this.state;
+    const { movie } = this.props;
 
     return (
       <>
-        <div className="details__poster">{this.isMovieHasPoster()}</div>
+        <div className="details__poster">{this.imgTagMoviePoster()}</div>
 
         <div className="details__rating">
           <span className="details__rating_title">IMDb Rating:</span>
@@ -63,7 +39,7 @@ class MovieDetails extends Component {
   };
 
   htmlRightBlock = () => {
-    const { movie } = this.state;
+    const { movie } = this.props;
 
     return (
       <>
@@ -99,23 +75,21 @@ class MovieDetails extends Component {
   };
 
   render() {
-    const { movie, load } = this.state;
+    const { spinner, isLoaded } = this.props;
 
     return (
       <>
-        {load && <Loader />}
+        {spinner && <Spinner />}
 
-        <div className="details__wrapper">
-          <div className="details__leftblock">
-            {movie && !load && this.htmlLeftBlock()}
+        {isLoaded && (
+          <div className="details__wrapper">
+            <div className="details__leftblock">{this.htmlLeftBlock()}</div>
+            <div className="details__rightblock">{this.htmlRightBlock()}</div>
           </div>
-          <div className="details__rightblock">
-            {movie && !load && this.htmlRightBlock()}
-          </div>
-        </div>
+        )}
       </>
     );
   }
 }
 
-export default withRouter(MovieDetails);
+export default MovieDetails;
