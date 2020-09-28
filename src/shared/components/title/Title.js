@@ -1,6 +1,5 @@
 // modules
 import React, { Component } from 'react';
-import { withRouter } from 'react-router';
 
 // styles
 import './title.scss';
@@ -17,4 +16,4 @@ class Title extends Component {
   }
 }
 
-export default withRouter(Title);
+export default Title;
