@@ -23,8 +23,8 @@ class Slider extends Component {
 
     const { name } = event.currentTarget;
 
-    const isPrevBtn = name === 'nextSlide';
-    const isNextBtn = name === 'prevSlide';
+    const isNextBtn = name === 'nextSlide';
+    const isPrevBtn = name === 'prevSlide';
 
     const totalItems = slides.length;
     const firstSlideIdx = 0;
