@@ -6,34 +6,28 @@ import {
   SAVE_CUURENT_SLIDE_IDX,
 } from '../../../../redux_setup/types';
 
-export function slider(state = initialState, { type, payload }) {
-  switch (type) {
-    case FETCH_SLIDE_MOVIE_DATA_START:
-      return {
-        ...state,
-      };
+const handlers = {
+  [FETCH_SLIDE_MOVIE_DATA_START]: state => {
+    return { ...state };
+  },
 
-    case FETCH_SLIDE_MOVIE_DATA_SUCCESS:
-      return {
-        ...state,
-        currentSlideData: payload,
-        isLoaded: true,
-      };
+  [FETCH_SLIDE_MOVIE_DATA_SUCCESS]: (state, { payload }) => {
+    return { ...state, currentSlideData: payload, isLoaded: true };
+  },
 
-    case FETCH_SLIDE_MOVIE_DATA_ERROR:
-      return {
-        ...state,
-        error: payload,
-        isLoaded: false,
-      };
+  [FETCH_SLIDE_MOVIE_DATA_ERROR]: (state, { payload }) => {
+    return { ...state, error: payload, isLoaded: false };
+  },
 
-    case SAVE_CUURENT_SLIDE_IDX:
-      return {
-        ...state,
-        currentSlideIdx: payload,
-      };
+  [SAVE_CUURENT_SLIDE_IDX]: (state, { payload }) => {
+    return { ...state, currentSlideIdx: payload };
+  },
 
-    default:
-      return state;
-  }
-}
+  DEFAULT: state => state,
+};
+
+export const slider = (state = initialState, action) => {
+  const handler = handlers[action.type] || handlers.DEFAULT;
+
+  return handler(state, action);
+};
