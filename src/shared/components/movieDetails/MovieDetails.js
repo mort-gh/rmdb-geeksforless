@@ -1,6 +1,9 @@
 // modules
 import React, { Component } from 'react';
 
+// types
+import { MovieDetailsPropTypes } from 'shared/types/propTypes';
+
 // components
 import { Spinner } from '../loader/Spinner';
 
@@ -93,3 +96,5 @@ class MovieDetails extends Component {
 }
 
 export default MovieDetails;
+
+MovieDetails.propTypes = MovieDetailsPropTypes;
