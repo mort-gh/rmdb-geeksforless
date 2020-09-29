@@ -12,20 +12,19 @@ export function search(state = initialState, { type, payload }) {
       return {
         ...state,
         spinner: true,
-        error: null
+        error: null,
       };
 
     case FETCH_MOVIES_BY_QUERY_SUCCESS:
       return {
         ...state,
         movies: payload.Search,
-        totalResults: payload.totalResults,
+        totalResults: +payload.totalResults,
         spinner: false,
         isLoaded: true,
       };
 
     case FETCH_MOVIES_BY_QUERY_ERROR:
-      console.log('action ', payload);
       return {
         ...state,
         spinner: false,
@@ -36,7 +35,7 @@ export function search(state = initialState, { type, payload }) {
       return {
         ...state,
         searchQuery: payload.searchQuery,
-        currentPage: payload.currentPage,
+        currentPage: +payload.currentPage,
       };
 
     default:

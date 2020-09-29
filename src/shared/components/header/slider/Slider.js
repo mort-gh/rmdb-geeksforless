@@ -1,5 +1,9 @@
 // modules
 import React, { Component } from 'react';
+
+// types
+import { SliderPropTypes } from '../../../types/propTypes';
+
 // style
 import './slider.scss';
 
@@ -116,3 +120,5 @@ class Slider extends Component {
 }
 
 export default Slider;
+
+Slider.propTypes = SliderPropTypes;

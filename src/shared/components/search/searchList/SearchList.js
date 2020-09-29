@@ -2,6 +2,9 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
+// types
+import { SearchPropTypes } from 'shared/types/propTypes';
+
 // styles
 import './searchList.scss';
 
@@ -45,3 +48,5 @@ class SearchList extends Component {
 }
 
 export default SearchList;
+
+SearchList.propTypes = SearchPropTypes;
