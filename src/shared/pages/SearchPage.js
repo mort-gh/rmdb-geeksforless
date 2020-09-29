@@ -1,22 +1,29 @@
 // modules
-import React, { Component } from 'react';
+import React, { Component, lazy } from 'react';
 
 // components
-import SliderContainer from 'shared/containers/SliderContainer';
 import Title from 'shared/components/title/Title';
-import SearchContainer from 'shared/containers/SearchContainer';
+
+// lazy loaders
+const LoadSliderContainer = lazy(() =>
+  import(/* webpackChunkName: "SliderContainer" */ '../containers/SliderContainer')
+);
+
+const LoadSearchContainer = lazy(() =>
+  import(/* webpackChunkName: "SearchContainer" */ '../containers/SearchContainer')
+);
 
 class SearchPage extends Component {
   render() {
     return (
       <>
         <header className="container__header">
-          <SliderContainer />
+          <LoadSliderContainer />
           <Title />
         </header>
 
         <main className="container__main">
-          <SearchContainer />
+          <LoadSearchContainer />
         </main>
       </>
     );
