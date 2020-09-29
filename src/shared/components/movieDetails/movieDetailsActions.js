@@ -4,7 +4,7 @@ import {
   FETCH_MOVIE_BY_ID_START,
   FETCH_MOVIE_BY_ID_SUCCESS,
   FETCH_MOVIE_BY_ID_ERROR,
-} from 'redux_setup/types';
+} from '../../../redux_setup/types';
 
 const API_KEY = `8b47da7b`;
 axios.defaults.baseURL = `http://www.omdbapi.com/`;

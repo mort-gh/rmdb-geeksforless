@@ -5,7 +5,7 @@ import {
   FETCH_MOVIES_BY_QUERY_START,
   FETCH_MOVIES_BY_QUERY_SUCCESS,
   SAVE_URL_PARAMS,
-} from 'redux_setup/types';
+} from '../../../redux_setup/types';
 
 const API_KEY = `8b47da7b`;
 axios.defaults.baseURL = `http://www.omdbapi.com/`;
@@ -18,8 +18,12 @@ export function fetchMoviesByQuery(query, page) {
         `?apikey=${API_KEY}&s=${query}&page=${page}`
       );
 
+      if (!data.data.Error) {
       dispatch(fetchMoviesSuccess(data.data));
       dispatch(saveURLparams(query, page));
+      } else {
+        dispatch(fetchMoviesError(data.data.Error));
+      }
 
       window.scrollTo({ top: 730, behavior: 'smooth' });
     } catch (error) {
@@ -44,7 +48,7 @@ export function fetchMoviesSuccess(data) {
 export function fetchMoviesError(error) {
   return {
     type: FETCH_MOVIES_BY_QUERY_ERROR,
-    error,
+    payload: error,
   };
 }
 

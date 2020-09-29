@@ -8,6 +8,9 @@ import SearchListContainer from 'shared/containers/SearchListContainer';
 import SearchPaginationContainer from 'shared/containers/SearchPaginationContainer';
 import { Spinner } from '../loader/Spinner';
 
+// styles
+import "./search.scss"
+
 class Search extends Component {
   componentDidMount() {
     const { location, history, fetchMoviesByQuery } = this.props;
@@ -19,7 +22,7 @@ class Search extends Component {
   }
 
   render() {
-    const { spinner, isLoaded } = this.props;
+    const { spinner, isLoaded, error } = this.props;
 
     return (
       <>
@@ -27,7 +30,9 @@ class Search extends Component {
 
         <SearchInputContainer />
 
-        {isLoaded && (
+        {error && (<h2 className="error">{error}</h2>)}
+
+        {isLoaded && !error && (
           <>
             <SearchListContainer />
             <SearchPaginationContainer />

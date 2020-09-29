@@ -4,12 +4,16 @@ import {
   FETCH_MOVIES_BY_QUERY_START,
   FETCH_MOVIES_BY_QUERY_SUCCESS,
   SAVE_URL_PARAMS,
-} from 'redux_setup/types';
+} from '../../../redux_setup/types';
 
 export function search(state = initialState, { type, payload }) {
   switch (type) {
     case FETCH_MOVIES_BY_QUERY_START:
-      return { ...state, spinner: true };
+      return {
+        ...state,
+        spinner: true,
+        error: null
+      };
 
     case FETCH_MOVIES_BY_QUERY_SUCCESS:
       return {
@@ -21,6 +25,7 @@ export function search(state = initialState, { type, payload }) {
       };
 
     case FETCH_MOVIES_BY_QUERY_ERROR:
+      console.log('action ', payload);
       return {
         ...state,
         spinner: false,
