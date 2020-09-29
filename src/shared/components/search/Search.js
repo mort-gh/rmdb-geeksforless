@@ -2,6 +2,9 @@
 import React, { Component } from 'react';
 import queryString from 'query-string';
 
+// types
+import { SearchPropTypes } from 'shared/types/propTypes';
+
 // components
 import SearchInputContainer from 'shared/containers/SearchInputContainer';
 import SearchListContainer from 'shared/containers/SearchListContainer';
@@ -9,7 +12,7 @@ import SearchPaginationContainer from 'shared/containers/SearchPaginationContain
 import { Spinner } from '../loader/Spinner';
 
 // styles
-import "./search.scss"
+import './search.scss';
 
 class Search extends Component {
   componentDidMount() {
@@ -30,7 +33,7 @@ class Search extends Component {
 
         <SearchInputContainer />
 
-        {error && (<h2 className="error">{error}</h2>)}
+        {error && <h2 className="error">{error}</h2>}
 
         {isLoaded && !error && (
           <>
@@ -44,3 +47,5 @@ class Search extends Component {
 }
 
 export default Search;
+
+Search.propTypes = SearchPropTypes;
