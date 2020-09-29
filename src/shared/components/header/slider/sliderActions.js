@@ -5,7 +5,7 @@ import {
   FETCH_SLIDE_MOVIE_DATA_SUCCESS,
   FETCH_SLIDE_MOVIE_DATA_ERROR,
   SAVE_CUURENT_SLIDE_IDX,
-} from 'redux_setup/types';
+} from '../../../../redux_setup/types';
 
 const API_KEY = `8b47da7b`;
 axios.defaults.baseURL = `http://www.omdbapi.com/`;
