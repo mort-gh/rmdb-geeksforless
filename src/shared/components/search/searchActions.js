@@ -21,7 +21,7 @@ export function fetchMoviesByQuery(query, page) {
         data = await axios.get(`?apikey=${API_KEY}&s=${query}&page=${page}`);
       }
 
-      if (!data.data.Error) dispatch(fetchMoviesSuccess(data.data));
+      if (data && !data.data.Error) dispatch(fetchMoviesSuccess(data.data));
       else dispatch(fetchMoviesError(data.data.Error));
 
       window.scrollTo({ top: 730, behavior: 'smooth' });
