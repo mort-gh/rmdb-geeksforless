@@ -5,30 +5,24 @@ import {
   FETCH_MOVIE_BY_ID_ERROR,
 } from '../../../redux_setup/types';
 
-export function movieDetails(state = initialState, { type, payload }) {
-  switch (type) {
-    case FETCH_MOVIE_BY_ID_START:
-      return {
-        ...state,
-        spinner: true,
-      };
+const handlers = {
+  [FETCH_MOVIE_BY_ID_START]: state => {
+    return { ...state, spinner: true };
+  },
 
-    case FETCH_MOVIE_BY_ID_SUCCESS:
-      return {
-        ...state,
-        movie: payload,
-        spinner: false,
-        isLoaded: true,
-      };
+  [FETCH_MOVIE_BY_ID_SUCCESS]: (state, { payload }) => {
+    return { ...state, movie: payload, spinner: false, isLoaded: true };
+  },
 
-    case FETCH_MOVIE_BY_ID_ERROR:
-      return {
-        ...state,
-        spinner: false,
-        error: payload,
-      };
+  [FETCH_MOVIE_BY_ID_ERROR]: (state, { payload }) => {
+    return { ...state, spinner: false, error: payload };
+  },
 
-    default:
-      return state;
-  }
-}
+  DEFAULT: state => state,
+};
+
+export const movieDetails = (state = initialState, action) => {
+  const handler = handlers[action.type] || handlers.DEFAULT;
+
+  return handler(state, action);
+};
