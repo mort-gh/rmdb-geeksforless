@@ -9,7 +9,7 @@ import ReactPlayer from 'react-player/youtube';
 import { TrailerPropTypes } from 'shared/types/propTypes';
 
 // styles
-import './trailer.scss';
+import './Trailer.scss';
 
 class Trailer extends Component {
   returnToPrevPage = () => {
