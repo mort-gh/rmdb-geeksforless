@@ -8,6 +8,20 @@ import { SearchPropTypes } from 'shared/types/propTypes';
 import './searchInput.scss';
 
 class SearchInput extends Component {
+  handleChange = event => {
+    const { history, fetchMoviesByQuery } = this.props;
+    const { value } = event.target;
+    const page = 1;
+
+    fetchMoviesByQuery(value, page);
+
+    if (value && value.length >= 3) {
+      history.push({ search: `?query=${value}&page=${page}` });
+    } else {
+      history.push('/');
+    }
+  };
+
   handleSubmit = event => {
     event.preventDefault();
 
@@ -27,6 +41,7 @@ class SearchInput extends Component {
     return (
       <form className="form" onSubmit={this.handleSubmit}>
         <input
+          onChange={this.handleChange}
           className="form__input"
           type="text"
           defaultValue={searchQuery}

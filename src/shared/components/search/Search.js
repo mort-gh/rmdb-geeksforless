@@ -25,7 +25,7 @@ class Search extends Component {
   }
 
   render() {
-    const { spinner, isLoaded, error } = this.props;
+    const { spinner, searchQuery, error, isLoaded } = this.props;
 
     return (
       <>
@@ -33,9 +33,14 @@ class Search extends Component {
 
         <SearchInputContainer />
 
-        {error && <h2 className="error">{error}</h2>}
+        {error && searchQuery.length >= 3 && (
+          <h2 className="error">
+            Ooops! :( <br />
+            {error}
+          </h2>
+        )}
 
-        {isLoaded && !error && (
+        {isLoaded && (
           <>
             <SearchListContainer />
             <SearchPaginationContainer />

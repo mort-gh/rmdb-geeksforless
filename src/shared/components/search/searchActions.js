@@ -13,17 +13,16 @@ axios.defaults.baseURL = `http://www.omdbapi.com/`;
 export function fetchMoviesByQuery(query, page) {
   return async dispatch => {
     dispatch(fetchMoviesStart());
-    try {
-      const data = await axios.get(
-        `?apikey=${API_KEY}&s=${query}&page=${page}`
-      );
+    dispatch(saveURLparams(query, page));
 
-      if (!data.data.Error) {
-      dispatch(fetchMoviesSuccess(data.data));
-      dispatch(saveURLparams(query, page));
-      } else {
-        dispatch(fetchMoviesError(data.data.Error));
+    try {
+      let data;
+      if (query.length >= 3) {
+        data = await axios.get(`?apikey=${API_KEY}&s=${query}&page=${page}`);
       }
+
+      if (!data.data.Error) dispatch(fetchMoviesSuccess(data.data));
+      else dispatch(fetchMoviesError(data.data.Error));
 
       window.scrollTo({ top: 730, behavior: 'smooth' });
     } catch (error) {

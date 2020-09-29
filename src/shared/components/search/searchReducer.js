@@ -22,7 +22,12 @@ const handlers = {
   },
 
   [FETCH_MOVIES_BY_QUERY_ERROR]: (state, { payload }) => {
-    return { ...state, spinner: false, error: payload };
+    return {
+      ...state,
+      spinner: false,
+      error: payload,
+      isLoaded: false,
+    };
   },
 
   [SAVE_URL_PARAMS]: (state, { payload }) => {
