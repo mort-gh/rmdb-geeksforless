@@ -5,6 +5,9 @@ import { withRouter } from 'react-router';
 // services
 import ReactPlayer from 'react-player/youtube';
 
+// types
+import { TrailerPropTypes } from 'shared/types/propTypes';
+
 // styles
 import './trailer.scss';
 
@@ -47,3 +50,5 @@ class Trailer extends Component {
 }
 
 export default withRouter(Trailer);
+
+Trailer.propTypes = TrailerPropTypes;
