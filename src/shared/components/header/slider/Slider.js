@@ -59,7 +59,7 @@ class Slider extends Component {
     const { Year, Title } = this.props.currentSlideData;
 
     return (
-      <div className="slider__info">
+      <div className="slider__info move">
         <span className="slider__info_year">{Year}</span>
         <span className="slider__info_title">{Title}</span>
       </div>
@@ -68,7 +68,7 @@ class Slider extends Component {
 
   htmlSliderContolls = () => {
     return (
-      <div className="slider__controlls">
+      <div className="slider__controlls move">
         <button
           type="button"
           name="prevSlide"
@@ -109,10 +109,12 @@ class Slider extends Component {
     return (
       <>
         <>
-          <div className="slider" style={backgroundImgOptions}>
-            {isLoaded && this.htmlSlideInfo()}
-            {isLoaded && this.htmlSliderContolls()}
-          </div>
+          {isLoaded && (
+            <div className="slider move" style={backgroundImgOptions}>
+              {this.htmlSlideInfo()}
+              {this.htmlSliderContolls()}
+            </div>
+          )}
         </>
       </>
     );

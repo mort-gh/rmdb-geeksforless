@@ -18,7 +18,7 @@ class SearchList extends Component {
     };
 
     return (
-      <li className="search__list_item" key={movie.imdbID}>
+      <li className="search__list_item move" key={movie.imdbID}>
         <Link className="search__list_link" to={linkOptions}>
           <div className="item__block">
             <div className="item__block_left">

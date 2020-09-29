@@ -86,8 +86,12 @@ class MovieDetails extends Component {
 
         {isLoaded && (
           <div className="details__wrapper">
-            <div className="details__leftblock">{this.htmlLeftBlock()}</div>
-            <div className="details__rightblock">{this.htmlRightBlock()}</div>
+            <div className="details__leftblock move">
+              {this.htmlLeftBlock()}
+            </div>
+            <div className="details__rightblock move">
+              {this.htmlRightBlock()}
+            </div>
           </div>
         )}
       </>
