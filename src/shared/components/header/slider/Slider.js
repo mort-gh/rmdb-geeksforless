@@ -5,7 +5,7 @@ import React, { Component } from 'react';
 import { SliderPropTypes } from '../../../types/propTypes';
 
 // style
-import './slider.scss';
+import './Slider.scss';
 
 class Slider extends Component {
   componentDidMount() {
