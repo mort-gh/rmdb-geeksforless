@@ -8,6 +8,7 @@ export const SliderPropTypes = {
   currentSlideData: PropTypes.object,
   error: PropTypes.oneOfType([
     PropTypes.string.isRequired,
+    PropTypes.object.isRequired,
     PropTypes.oneOf([null]).isRequired,
   ]),
   histoty: PropTypes.object,
@@ -30,6 +31,7 @@ export const MovieDetailsPropTypes = {
   isLoaded: PropTypes.bool.isRequired,
   error: PropTypes.oneOfType([
     PropTypes.string.isRequired,
+    PropTypes.object.isRequired,
     PropTypes.oneOf([null]).isRequired,
   ]),
   histoty: PropTypes.object,
@@ -47,6 +49,7 @@ export const SearchPropTypes = {
   isLoaded: PropTypes.bool.isRequired,
   error: PropTypes.oneOfType([
     PropTypes.string.isRequired,
+    PropTypes.object.isRequired,
     PropTypes.oneOf([null]).isRequired,
   ]),
   histoty: PropTypes.object,
