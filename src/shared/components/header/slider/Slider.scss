@@ -81,11 +81,11 @@
     }
 
     &_prev:hover {
-      margin-left: 120px;
+      transform: translateX(-20px);
     }
 
     &_next:hover {
-      margin-right: 120px;
+      transform: translateX(20px);
     }
   }
 
