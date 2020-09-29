@@ -62,3 +62,22 @@ header {
   padding-right: var(--p140);
   margin: 0 auto;
 }
+
+.move {
+  opacity: 0;
+  animation: fadein 1s;
+  animation-delay: 0.5s;
+  -webkit-animation-fill-mode: forwards;
+  -moz-animation-fill-mode: forwards;
+  -ms-animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
+}
+
+@keyframes fadein {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
