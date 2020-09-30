@@ -4,14 +4,12 @@
 
 ## Technologies and specifications 🧬
 
-- built on React.js
-- navigation with react-router-dom
-- app state control Redux, Redux - Thunk
-- scss/sass style preprocessor
-- responsive design for mobile and desktop devices
-- typing data inside components with PropTypes
-- the application is ready for testing on Jest
-- the application is ready for implementation TypeScript
+- built on **React.js**
+- navigation with **react-router-dom**
+- app state control **Redux**, Redux - Thunk
+- **scss/sass** style preprocessor
+- **responsive design** for mobile and desktop devices
+- typing data inside components with **PropTypes**
 
 ## Application features 🚀
 
@@ -21,6 +19,11 @@
 - convenient pagination of search results
 - customizable slider
 - ready for loading trailers
+
+**In process:**
+- endless scrolling of search results ( [pull-request link](https://github.com/mort-gh/rmdb-geeksforless/pull/15) )
+- typing with TypeScript
+- testing with Jest
 
 ## Installation 🛠
 
@@ -48,4 +51,4 @@ To install, type:
 
 	`http://localhost:3000/`
 
-3. Enjoy!
+3. Don't forget to star the repository :)
