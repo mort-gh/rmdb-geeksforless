@@ -14,7 +14,7 @@ import { rootReducer } from './redux_setup/rootReducer';
 import App from './App';
 
 // styles
-import './shared/styles/global.scss';
+import './shared/styles/main.scss';
 
 const store = createStore(
   rootReducer,
