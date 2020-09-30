@@ -2,6 +2,7 @@
 
 **React Movie Database** - this is an application built on the basis of the OMDb API, for searching information about movies and serials.
 
+
 ## Technologies and specifications 🧬
 
 - built on **React.js**
@@ -10,6 +11,7 @@
 - **scss/sass** style preprocessor
 - **responsive design** for mobile and desktop devices
 - typing data inside components with **PropTypes**
+
 
 ## Application features 🚀
 
@@ -20,10 +22,12 @@
 - customizable slider
 - ready for loading trailers
 
+
 **In process:**
 - endless scrolling of search results ( [pull-request link](https://github.com/mort-gh/rmdb-geeksforless/pull/15) )
 - typing with TypeScript
 - testing with Jest
+
 
 ## Installation 🛠
 
