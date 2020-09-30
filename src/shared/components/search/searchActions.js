@@ -21,10 +21,10 @@ export function fetchMoviesByQuery(query, page) {
         data = await axios.get(`?apikey=${API_KEY}&s=${query}&page=${page}`);
       }
 
-      if (data && !data.data.Error) dispatch(fetchMoviesSuccess(data.data));
-      else dispatch(fetchMoviesError(data.data.Error));
-
-      window.scrollTo({ top: 730, behavior: 'smooth' });
+      if (data && !data.data.Error) {
+        dispatch(fetchMoviesSuccess(data.data));
+        window.scrollTo({ top: 730, behavior: 'smooth' });
+      } else dispatch(fetchMoviesError(data.data.Error));
     } catch (error) {
       dispatch(fetchMoviesError(error));
     }
