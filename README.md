@@ -31,7 +31,7 @@
 
 ## Installation 🛠
 
-This application has been tested on Node.js version 12 and later. There is way to install the application:
+This application has been tested on Node.js version 12 and later. There is way to install them:
 
 1. Clone the repository to a local or remote server:
 
