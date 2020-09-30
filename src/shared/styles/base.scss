@@ -1,6 +1,3 @@
-@import './fonts.scss';
-@import './variables.scss';
-
 html {
   box-sizing: border-box;
 }
@@ -49,19 +46,7 @@ header {
   width: 100%;
 }
 
-// container
-
-.container__header {
-  width: 1440px;
-  margin: 0 auto;
-}
-
-.container__main {
-  width: 1440px;
-  padding-left: var(--p140);
-  padding-right: var(--p140);
-  margin: 0 auto;
-}
+// animation class
 
 .move {
   opacity: 0;
@@ -79,5 +64,31 @@ header {
   }
   to {
     opacity: 1;
+  }
+}
+
+// container
+
+.container__header {
+  margin: 0 auto;
+}
+
+.container__main {
+  padding-left: 15px;
+  padding-right: 15px;
+  margin: 0 auto;
+}
+
+// media rules
+
+@media (min-width: 768px) {
+  .container__header {
+    width: 1440px;
+  }
+
+  .container__main {
+    width: 1440px;
+    padding-left: var(--p140);
+    padding-right: var(--p140);
   }
 }

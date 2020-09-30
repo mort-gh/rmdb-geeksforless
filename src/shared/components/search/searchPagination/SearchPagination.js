@@ -4,9 +4,6 @@ import React, { Component } from 'react';
 // types
 import { SearchPropTypes } from 'shared/types/propTypes';
 
-// styles
-import './searchPagination.scss';
-
 class SearchPagination extends Component {
   nextPageHandler = event => {
     const { name } = event.currentTarget;

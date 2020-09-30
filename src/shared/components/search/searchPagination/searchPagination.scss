@@ -3,29 +3,32 @@
     width: 100%;
     display: flex;
     justify-content: flex-end;
-    margin: 100px 0;
+    margin-top: 20px;
+    margin-bottom: 40px;
   }
 
   &__block {
-    width: 750px;
+    width: 100%;
     display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
     justify-content: space-between;
   }
 
   &__info {
     p {
       color: var(--color-header);
-      font-size: 18px;
+      font-size: 14px;
       font-style: normal;
       font-weight: 500;
-      line-height: 22px;
+      line-height: 18px;
       letter-spacing: 0em;
       text-align: left;
 
       span {
         color: var(--color-header);
         font-weight: 700;
-        font-size: 22px;
+        font-size: 14px;
       }
     }
   }
@@ -33,12 +36,13 @@
   &__controllers {
     display: flex;
     justify-content: flex-end;
+    margin-bottom: 40px;
 
     button {
       background: none;
       outline: none;
       border: none;
-      width: 90px;
+      width: 110px;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -46,7 +50,7 @@
 
       span {
         color: var(--color-header);
-        font-size: 18px;
+        font-size: 14px;
         font-style: normal;
         font-weight: 700;
         line-height: 22px;
@@ -56,20 +60,65 @@
       }
     }
 
-    &_next {
-      margin-left: 50px;
-    }
-
-    &_next:hover span {
-      font-size: 1.4rem;
-    }
-
-    &_prev:hover span {
-      font-size: 2rem;
+    &_prev {
+      margin-right: 50px;
     }
   }
 
   &__arrow_next {
     transform: rotate(180deg);
+  }
+}
+
+// media rules
+
+@media (min-width: 768px) {
+  .pagination {
+    &__wrapper {
+      margin: 100px 0;
+    }
+
+    &__block {
+      width: 750px;
+      flex-direction: row;
+      justify-content: space-between;
+    }
+
+    &__info {
+      p {
+        font-size: 18px;
+        line-height: 22px;
+
+        span {
+          font-size: 22px;
+        }
+      }
+    }
+
+    &__controllers {
+      margin-bottom: 0;
+
+      button {
+        span {
+          font-size: 18px;
+        }
+      }
+
+      &_next {
+        margin-left: 50px;
+      }
+
+      &_prev {
+        margin-right: 0;
+      }
+
+      &_next:hover span {
+        font-size: 1.4rem;
+      }
+
+      &_prev:hover span {
+        font-size: 1.4rem;
+      }
+    }
   }
 }

@@ -7,9 +7,6 @@ import { MovieDetailsPropTypes } from 'shared/types/propTypes';
 // components
 import { Spinner } from '../loader/Spinner';
 
-// styles
-import './movieDetails.scss';
-
 class MovieDetails extends Component {
   componentDidMount() {
     const { movieID } = this.props.match.params;

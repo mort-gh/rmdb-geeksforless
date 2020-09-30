@@ -4,9 +4,6 @@ import React, { Component } from 'react';
 // types
 import { SliderPropTypes } from '../../../types/propTypes';
 
-// style
-import './slider.scss';
-
 class Slider extends Component {
   componentDidMount() {
     const { fetchMovieByID, slides } = this.props;
