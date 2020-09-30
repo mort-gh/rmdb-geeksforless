@@ -22,6 +22,7 @@
 
   &__rightblock {
     width: 300px;
+    margin-right: 30px;
   }
 
   &__poster {
@@ -117,7 +118,8 @@
     }
 
     &__rightblock {
-      width: min-content;
+      width: 450px;
+      margin-right: 0;
     }
 
     &__poster {
@@ -157,6 +159,23 @@
         font-size: 48px;
         font-weight: 700;
         line-height: 59px;
+      }
+    }
+
+    &__key {
+      font-size: 24px;
+      line-height: 29px;
+    }
+
+    &__value {
+      font-size: 24px;
+      line-height: 29px;
+    }
+
+    &__plot {
+      &_title {
+        font-size: 18px;
+        line-height: 150%;
       }
     }
   }
