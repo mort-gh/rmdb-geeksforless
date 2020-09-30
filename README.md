@@ -24,7 +24,7 @@
 - **customisable slider**
 - **ready for loading trailers**
 
-**TODO list:** 👇
+## TODO 👇
 - *finish work on the **endless scrolling** of search results* ( [pull-request link](https://github.com/mort-gh/rmdb-geeksforless/pull/15) )
 - *ready to typing with **TypeScript** - implement TS*
 - *ready to testing with **Jest** and **Enzyme** - implement tests*
