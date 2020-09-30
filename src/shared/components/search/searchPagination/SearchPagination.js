@@ -110,10 +110,12 @@ class SearchPagination extends Component {
     return (
       <div className="pagination__wrapper">
         <div className="pagination__block">
-          {this.htmlTotalPagesInfo()}
-          <div className="pagination__controllers">
-            {renderPrevBtn}
-            {renderNextBtn}
+          <div className="pagination__fixed">
+            {this.htmlTotalPagesInfo()}
+            <div className="pagination__controllers">
+              {renderPrevBtn}
+              {renderNextBtn}
+            </div>
           </div>
         </div>
       </div>

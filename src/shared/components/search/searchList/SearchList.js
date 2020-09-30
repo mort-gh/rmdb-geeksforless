@@ -9,6 +9,38 @@ import { SearchPropTypes } from 'shared/types/propTypes';
 import './searchList.scss';
 
 class SearchList extends Component {
+  componentDidMount() {
+    window.addEventListener('scroll', this.handleScroll);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('scroll', this.handleScroll);
+  }
+
+  handleScroll = () => {
+    const { innerHeight, pageYOffset } = window;
+    const { offsetHeight } = document.body;
+    const isScrolledDown = innerHeight + pageYOffset >= offsetHeight;
+
+    console.log('innerHeight', innerHeight);
+    console.log('pageYOffset', pageYOffset);
+    console.log('offsetHeight', offsetHeight);
+
+    if (isScrolledDown) {
+      const {
+        searchQuery,
+        currentPage,
+        fetchMoviesByScroll,
+        history,
+      } = this.props;
+
+      const nextPage = currentPage + 1;
+
+      fetchMoviesByScroll(searchQuery, nextPage);
+      history.push({ search: `?query=${searchQuery}&page=${nextPage}` });
+    }
+  };
+
   renderListItems = movie => {
     const { pathname, search } = this.props.location;
 
