@@ -1,10 +1,10 @@
 .form {
-  margin-top: 70px;
+  margin-top: 10px;
 
   &__input {
     padding-left: 24px;
-    height: 70px;
-    width: 540px;
+    height: 50px;
+    width: 100%;
     left: 140px;
     top: 761px;
     border-radius: 0px;
@@ -12,10 +12,10 @@
     outline: none;
     font-style: normal;
     font-weight: 500;
-    font-size: 18px;
-    line-height: 22px;
+    font-size: 15px;
+    line-height: 28px;
     color: var(--color-bg);
-    background-image: url('../../../../assets/svg/search.svg');
+    background-image: url('../../assets/svg/search.svg');
     background-repeat: no-repeat;
     background-position: right 24px center;
 
@@ -24,6 +24,21 @@
     }
 
     &_icon {
+    }
+  }
+}
+
+// media rules
+
+@media (min-width: 768px) {
+  .form {
+    margin-top: 70px;
+
+    &__input {
+      width: 540px;
+      height: 70px;
+      font-size: 18px;
+      line-height: 22px;
     }
   }
 }
