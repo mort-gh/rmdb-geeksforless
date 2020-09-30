@@ -1,0 +1,18 @@
+@import './normalize.scss';
+@import './fonts.scss';
+@import './variables.scss';
+@import './base.scss';
+
+// Header
+@import '../components/header/slider/Slider.scss';
+@import '../components/header/trailer/Trailer.scss';
+@import '../components/title/title.scss';
+
+// Search page
+@import '../components/search/search.scss';
+@import '../components/search/searchInput/searchInput.scss';
+@import '../components/search/searchList/searchList.scss';
+@import '../components/search/searchPagination/searchPagination.scss';
+
+// Movie details page
+@import '../components/movieDetails/movieDetails.scss';
