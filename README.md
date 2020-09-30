@@ -25,9 +25,9 @@
 - **ready for loading trailers**
 
 ## TODO 👇
-- *finish work on the **endless scrolling** of search results* ( [pull-request link](https://github.com/mort-gh/rmdb-geeksforless/pull/15) )
-- *ready to typing with **TypeScript** - implement TS*
-- *ready to testing with **Jest** and **Enzyme** - implement tests*
+- ***endless scrolling** of search results* ( [pull-request link](https://github.com/mort-gh/rmdb-geeksforless/pull/15) ) *- need to finish work*
+- *ready to typing with **TypeScript** - need to implement TS*
+- *ready to testing with **Jest** and **Enzyme** - need to implement tests and snapshots*
 
 ## Installation 🛠
 
