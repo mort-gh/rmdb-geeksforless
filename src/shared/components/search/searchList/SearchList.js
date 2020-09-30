@@ -5,9 +5,6 @@ import { Link } from 'react-router-dom';
 // types
 import { SearchPropTypes } from 'shared/types/propTypes';
 
-// styles
-import './searchList.scss';
-
 class SearchList extends Component {
   renderListItems = movie => {
     const { pathname, search } = this.props.location;

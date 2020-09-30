@@ -1,9 +1,6 @@
 // modules
 import React, { Component } from 'react';
 
-// styles
-import './title.scss';
-
 class Title extends Component {
   render() {
     return (

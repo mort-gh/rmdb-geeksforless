@@ -4,9 +4,6 @@ import React, { Component } from 'react';
 // types
 import { SearchPropTypes } from 'shared/types/propTypes';
 
-// styles
-import './searchInput.scss';
-
 class SearchInput extends Component {
   handleChange = event => {
     const { history, fetchMoviesByQuery } = this.props;
