@@ -5,40 +5,44 @@ import React, { Component } from 'react';
 import { SearchPropTypes } from 'shared/types/propTypes';
 
 class SearchInput extends Component {
-  handleChange = event => {
-    const { history, fetchMoviesByQuery } = this.props;
-    const { value } = event.target;
+  /**
+   * sends data to the action function and changes url parameters:
+   */
+  inputHandler = event => {
+    event.preventDefault();
+
+    const { fetchMoviesByQuery } = this.props;
+
+    let value = '';
     const page = 1;
 
-    fetchMoviesByQuery(value, page);
+    if (event.type === 'change') value = event.target.value;
+    if (event.type === 'submit') value = event.target.elements[0].value;
 
-    if (value && value.length >= 3) {
-      history.push({ search: `?query=${value}&page=${page}` });
+    fetchMoviesByQuery(value, page);
+    this.pushParamsToRouterHistory(value, page);
+  };
+
+  /**
+   * checks the validity of the query and pushes changes to the router history
+   */
+  pushParamsToRouterHistory = (query, page) => {
+    const { history } = this.props;
+
+    if (query && query.length >= 3) {
+      history.push({ search: `?query=${query}&page=${page}` });
     } else {
       history.push('/');
     }
-  };
-
-  handleSubmit = event => {
-    event.preventDefault();
-
-    const { history, fetchMoviesByQuery } = this.props;
-    const value = event.target.elements[0].value;
-    const page = 1;
-
-    history.push({ search: `?query=${value}&page=${page}` });
-
-    if (value) fetchMoviesByQuery(value, page);
-    else history.push('/');
   };
 
   render() {
     const { searchQuery } = this.props;
 
     return (
-      <form className="form" onSubmit={this.handleSubmit}>
+      <form className="form" onSubmit={this.inputHandler}>
         <input
-          onChange={this.handleChange}
+          onChange={this.inputHandler}
           className="form__input"
           type="text"
           defaultValue={searchQuery}
