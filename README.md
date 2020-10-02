@@ -26,7 +26,8 @@
 
 ## TODO 👇
 - ***endless scrolling** of search results* ( [pull-request link](https://github.com/mort-gh/rmdb-geeksforless/pull/15) ) *- need to finish work*
-- *ready to typing with **TypeScript** - need to implement TS*
+- *ready to typing with **TypeScript** - need to implement TS*   `// or Flow`
+- *ready to typing with **Flow*** ( [pull-request link ](https://github.com/mort-gh/rmdb-geeksforless/pull/22) ) - *need to implement TS* `// or TypeScript`
 - *ready to testing with **Jest** and **Enzyme** - need to implement tests and snapshots*
 
 ## Installation 🛠
